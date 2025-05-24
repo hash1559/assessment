@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
 const db = require("../models");
-
 const port = 3000;
-const aggregateRoutes = require("./routes/aggregateRoutes");
+const aggregateRoutes = require("./routes/aggregator.routes");
 
 db.sequelize
   .authenticate()
