@@ -1,10 +1,17 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const port = 3000;
+const db = require("../models");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+const port = 3000;
+const aggregateRoutes = require("./routes/aggregateRoutes");
+
+db.sequelize
+  .authenticate()
+  .then(() => console.log("Database connected"))
+  .catch((err) => console.log("Database connection error", err));
+
+app.use(express.json());
+app.use("/", aggregateRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
