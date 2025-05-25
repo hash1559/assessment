@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      currency_code: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       latitude: {
         type: Sequelize.DECIMAL,
         allowNull: false,
@@ -35,6 +39,10 @@ module.exports = {
       last_synced_at: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      news_articles: {
+        type: Sequelize.JSONB,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,

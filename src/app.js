@@ -9,6 +9,11 @@ db.sequelize
   .then(() => console.log("Database connected"))
   .catch((err) => console.log("Database connection error", err));
 
+const redisClient = require("./integrations/redis/redisClient");
+redisClient.on("error", (err) => {
+  console.error("Redis connection error:", err);
+});
+
 app.use(express.json());
 app.use("/", aggregateRoutes);
 

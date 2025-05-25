@@ -3,7 +3,19 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Location extends Model {}
+  class Location extends Model {
+    static associate(models) {
+      Location.hasOne(models.Weather, {
+        foreignKey: "location_id",
+        as: "weather",
+      });
+
+      Location.hasOne(models.ExchangeRate, {
+        foreignKey: "location_id",
+        as: "exchange_rate",
+      });
+    }
+  }
 
   Location.init(
     {
@@ -17,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       country_code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      currency_code: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -39,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
       last_synced_at: {
         type: DataTypes.DATE,
         allowNull: false,
+      },
+      news_articles: {
+        type: DataTypes.JSONB,
+        allowNull: true,
       },
     },
     {

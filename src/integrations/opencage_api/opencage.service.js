@@ -1,7 +1,7 @@
 const requestHandler = require("./requestHandler");
 
 class OpenCageAPI {
-  async getCoordinates(location) {
+  async getLocationData(location) {
     try {
       return await requestHandler.get(`?q=${location}`);
     } catch (error) {
