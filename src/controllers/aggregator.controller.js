@@ -49,12 +49,15 @@ exports.getAggregatedData = async (req, res) => {
 
 // Only pull data from public APIs when location doesn't exist at all or was synced more than 10 minutes ago
 async function maybeSyncDataStore(location) {
-  const cachedFee = await cacheService.get(
+  const lastSyncedAt = await cacheService.get(
     `locations:${location.toLowerCase()}`
   );
+  let minutesElapsedSinceLastSync = lastSyncedAt
+    ? (Date.now() - lastSyncedAt) / (1000 * 60)
+    : true;
 
-  const parsedFee = JSON.parse(cachedFee);
-  if (true) {
+  // Only sync data for a particular location if elapsed time is greater than 10 minutes
+  if (minutesElapsedSinceLastSync == true || minutesElapsedSinceLastSync > 10) {
     // Fetch data from the GEOLOCATION API
     const geolocationResp = await openCageAPI.getLocationData(location);
     let locationData = geolocationResp.results[0];
@@ -133,5 +136,9 @@ async function maybeSyncDataStore(location) {
       console.error("Transaction Failed. Rolled Back.", error);
       throw new Error("Error while performing transaction" + error.message);
     }
+
+    // Record timestamp as soon as the location data is synced
+    // This will later on help us determine whether we should sync or not ( within 10 minutes must be synced )
+    await cacheService.set(`locations:${location.toLowerCase()}`, Date.now());
   }
 }
