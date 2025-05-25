@@ -54,7 +54,7 @@ async function maybeSyncDataStore(location) {
   );
   let minutesElapsedSinceLastSync = lastSyncedAt
     ? (Date.now() - lastSyncedAt) / (1000 * 60)
-    : true;
+    : true; // This could be further improved by setting TTL.
 
   // Only sync data for a particular location if elapsed time is greater than 10 minutes
   if (minutesElapsedSinceLastSync == true || minutesElapsedSinceLastSync > 10) {
