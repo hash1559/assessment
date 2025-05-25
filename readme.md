@@ -18,7 +18,7 @@ There could be a number of improvements that can be made on this base solution. 
 More robust error handling can be introduced as well. 
 
 ## :zap: Usage
-Right after you've setup docker and built the images, try hitting the following endpoint on your local machine:
+Right after you've setup docker and have successfully built the images, try hitting the following endpoint on your local machine:
 
 ```
 GET http://localhost:3000/aggregate?location=Canada
