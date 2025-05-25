@@ -5,7 +5,7 @@
   - [Installation](#electric_plug-installation)
 
 ##  :beginner: About
-A minimal api that syncs location data from various public APIs, stores this data and retrieve it upon user requests. 
+A minimal api that syncs location data from various public APIs, stores this data and retrieves it upon user requests. 
 
 This application utilises a relation database, namely PostgreSql. Location based data is stored only after normalising it. 
 
